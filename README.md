@@ -89,27 +89,27 @@ The modifications compared with Ultralytics/yolov5 and their brief descriptions 
   # If you are using other versions of systems, please check https://tutorialforlinux.com/2019/12/01/how-to-add-cuda-repository-for-ubuntu-based-oses-2/
   # Install Ubuntu kernel head
   sudo apt install linux-headers-$(uname -r)
-  # Pinning CUDA repo
+  <br/># Pinning CUDA repo
   wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1604/x86_64/cuda-ubuntu1604.pin
   sudo mv cuda-ubuntu1604.pin /etc/apt/preferences.d/cuda-repository-pin-600
-  # Add CUDA GPG key
+  <br/># Add CUDA GPG key
   sudo apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1604/x86_64/7fa2af80.pub
-  # Setting up CUDA repo
+  <br/># Setting up CUDA repo
   sudo add-apt-repository "deb https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1604/x86_64/ /"
-  # Refresh apt repositories
+  <br/># Refresh apt repositories
   sudo apt update
-  # Installing CUDA 11.2
+  <br/># Installing CUDA 11.2
   sudo apt install cuda-11-2
   sudo apt install cuda-toolkit-11-2
-  # Setting up path
+  <br/># Setting up path
   echo 'export PATH=/usr/local/cuda-11.2/bin${PATH:+:${PATH}}' >> $HOME/.bashrc
   # You are done installing CUDA 11.2
-  # Check NVIDIA
+  <br/># Check NVIDIA
   nvidia-smi
   # Update all apts
   sudo apt-get update
   sudo apt-get -y upgrade
-  # Begin installing python 3.7
+  <br/># Begin installing python 3.7
   curl -o ~/miniconda.sh -O https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
   chmod +x ~/miniconda.sh
   ./miniconda.sh -b
