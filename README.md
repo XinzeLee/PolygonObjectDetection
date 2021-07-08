@@ -1,7 +1,7 @@
 # polygon-yolov5
 This repository is based on Ultralytics/yolov5, with adjustments to enable polygon prediction boxes.
 
-## Description
+## Section I. Description
 The codes are based on Ultralytics/yolov5, and several functions are added and modified to enable polygon prediction boxes.
 
 The modifications compared with Ultralytics/yolov5 and their brief descriptions are summarized below:
@@ -64,7 +64,7 @@ The modifications compared with Ultralytics/yolov5 and their brief descriptions 
   15. **polygon_detect.py : For detecting polygon-yolov5 models**
   16. requirements.py : Added python model shapely
   
-## How Does Polygon Boxes Work? How Does Polygon Boxes Different from Axis-Aligned Boxes?
+## Section II. How Does Polygon Boxes Work? How Does Polygon Boxes Different from Axis-Aligned Boxes?
   1. build_targets in class Polygon_ComputeLoss & forward in class Polygon_Detect
 <br/>
 <p align="center">
@@ -81,7 +81,7 @@ The modifications compared with Ultralytics/yolov5 and their brief descriptions 
 <img src="https://user-images.githubusercontent.com/87064748/124885366-c5a03000-e005-11eb-974e-14d61956955f.jpg" width="516">
 </p>
 
-## Installation
+## Section III. Installation
 ***For the CUDA extension to be successfully built without error, please use CUDA version >= 11.2. The codes have been verified in Ubuntu 16.04 with Tesla K80 GPU.***
 <div class="highlight highlight-source-shell position-relative">
 <pre>
@@ -127,4 +127,5 @@ cd <>
 pip install -r requirements.txt</pre>
 </div>
 
-## Tutorial 1
+## Section IV. Polygon-Tutorial 1
+### 1. build_targets in class Polygon_ComputeLoss & forward in class Polygon_Detect
