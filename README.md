@@ -127,5 +127,32 @@ cd <>
 pip install -r requirements.txt</pre>
 </div>
 
-## Section IV. Polygon-Tutorial 1
-### 1. build_targets in class Polygon_ComputeLoss & forward in class Polygon_Detect
+## Section IV. Polygon-Tutorial 1: Deploy the polygon yolov5s
+**Link**: <> 
+### 1. Inference
+<div class="highlight highlight-source-shell position-relative">
+<pre>
+MODIFIED
+</pre>
+</div>
+### 2. Test
+<div class="highlight highlight-source-shell position-relative">
+<pre>
+MODIFIED
+</pre>
+</div>
+### 3. Train
+<div class="highlight highlight-source-shell position-relative">
+<pre>
+MODIFIED
+</pre>
+</div>
+
+## Section V. Polygon-Tutorial 2: Transform COCO dataset to polygon labels using segmentation
+**Link**: <> 
+
+## Section VI. References
+* 1
+* 2
+* 3
+* 4
