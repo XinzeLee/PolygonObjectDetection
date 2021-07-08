@@ -14,11 +14,11 @@ The modifications compared with Ultralytics/yolov5 and their brief descriptions 
     <br/> 3.2. class Polygon_AutoShape : Polygon Version of Original AutoShape, input-robust polygon model wrapper for passing cv2/np/PIL/torch inputs. Includes preprocessing, inference and Polygon_NMS
     <br/> 3.3. class Polygon_Detections : Polygon detections class for Polygon-YOLOv5 inference results
   4. models/polygon_yolov5s_ucas.yaml : Configuration file of polygon yolov5s for exemplar UCAS-AOD dataset
-  **5. models/yolo.py :**
+  5. **models/yolo.py :**
     <br/> 5.1. class Polygon_Detect : Detect head for polygon yolov5 models with polygon box prediction
     <br/> 5.2. class Polygon_Model : Polygon yolov5 models with polygon box prediction
     
-  **6. utils/iou_cuda : CUDA extension for iou computation of polygon boxes**
+  6. **utils/iou_cuda : CUDA extension for iou computation of polygon boxes**
     <br/> 6.1. extensions.cpp : CUDA extension file
     <br/> 6.2. inter_union_cuda.cu : CUDA code for computing iou of polygon boxes
     <br/> 6.3. setup.py : for building CUDA extensions module polygon_inter_union_cuda, with two functions polygon_inter_union_cuda and polygon_b_inter_union_cuda
@@ -66,13 +66,13 @@ The modifications compared with Ultralytics/yolov5 and their brief descriptions 
   
 ## How Does Polygon Boxes Work? How Does Polygon Boxes Different from Axis-Aligned Boxes?
   1. build_targets in class Polygon_ComputeLoss & forward in class Polygon_Detect
-<br/>![1](https://user-images.githubusercontent.com/87064748/124885337-bfaa4f00-e005-11eb-957c-404b3164ad7a.jpg | width=200)
-
+<br/>
+<img src="https://user-images.githubusercontent.com/87064748/124885337-bfaa4f00-e005-11eb-957c-404b3164ad7a.jpg" width="200">
   2. order_corners in general.py
-<br/>![2](https://user-images.githubusercontent.com/87064748/124885357-c3d66c80-e005-11eb-90b3-d3335c2c37bf.jpg | width=200)
-
+<br/>
+<img src="https://user-images.githubusercontent.com/87064748/124885357-c3d66c80-e005-11eb-90b3-d3335c2c37bf.jpg" width="200">
   3. Illustrations of box loss of polygon boxes
-<br/>![3](https://user-images.githubusercontent.com/87064748/124885366-c5a03000-e005-11eb-974e-14d61956955f.jpg | width=200)
-
+<br/>
+<img src="https://user-images.githubusercontent.com/87064748/124885366-c5a03000-e005-11eb-974e-14d61956955f.jpg" width="100" height="200">
 
 
