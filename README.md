@@ -128,7 +128,7 @@ pip install -r requirements.txt</pre>
 </div>
 
 ## Section IV. Polygon-Tutorial 1: Deploy the polygon yolov5s
-**Link**: <> 
+**Link**: [Google - https://www.google.com/](#https://www.google.com/)
 ### 1. Inference
 <div class="highlight highlight-source-shell position-relative">
 <pre>
@@ -149,7 +149,7 @@ MODIFIED
 </div>
 
 ## Section V. Polygon-Tutorial 2: Transform COCO dataset to polygon labels using segmentation
-**Link**: <> 
+**Link**: [Google - https://www.google.com/](#https://www.google.com/)
 
 ## Section VI. References
 * 1
