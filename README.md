@@ -67,51 +67,57 @@ The modifications compared with Ultralytics/yolov5 and their brief descriptions 
 ## How Does Polygon Boxes Work? How Does Polygon Boxes Different from Axis-Aligned Boxes?
   1. build_targets in class Polygon_ComputeLoss & forward in class Polygon_Detect
 <br/>
-<img src="https://user-images.githubusercontent.com/87064748/124885337-bfaa4f00-e005-11eb-957c-404b3164ad7a.jpg" width="800" align="center">
+<p align="center">
+<img src="https://user-images.githubusercontent.com/87064748/124885337-bfaa4f00-e005-11eb-957c-404b3164ad7a.jpg" width="800">
+</p>
   2. order_corners in general.py
 <br/>
-<img src="https://user-images.githubusercontent.com/87064748/124885357-c3d66c80-e005-11eb-90b3-d3335c2c37bf.jpg" width="800" align="center">
+<p align="center">
+<img src="https://user-images.githubusercontent.com/87064748/124885357-c3d66c80-e005-11eb-90b3-d3335c2c37bf.jpg" width="800">
+</p>
   3. Illustrations of box loss of polygon boxes
 <br/>
-<img src="https://user-images.githubusercontent.com/87064748/124885366-c5a03000-e005-11eb-974e-14d61956955f.jpg" width="516" align="center">
+<p align="center">
+<img src="https://user-images.githubusercontent.com/87064748/124885366-c5a03000-e005-11eb-974e-14d61956955f.jpg" width="516">
+</p>
 
 ## Installation
 ***For the CUDA extension to be successfully built without error, please use CUDA version >= 11.2. The codes have been verified in Ubuntu 16.04 with Tesla K80 GPU.***
 <div>
-  # The following codes install CUDA 11.2 from scratch on Ubuntu 16.04, if you have installed it, please ignore
-  # If you are using other versions of systems, please check https://tutorialforlinux.com/2019/12/01/how-to-add-cuda-repository-for-ubuntu-based-oses-2/
-  # Install Ubuntu kernel head
+  \# The following codes install CUDA 11.2 from scratch on Ubuntu 16.04, if you have installed it, please ignore
+  \# If you are using other versions of systems, please check https://tutorialforlinux.com/2019/12/01/how-to-add-cuda-repository-for-ubuntu-based-oses-2/
+  \# Install Ubuntu kernel head
   sudo apt install linux-headers-$(uname -r)
-  # Pinning CUDA repo
+  \# Pinning CUDA repo
   wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1604/x86_64/cuda-ubuntu1604.pin
   sudo mv cuda-ubuntu1604.pin /etc/apt/preferences.d/cuda-repository-pin-600
-  # Add CUDA GPG key
+  \# Add CUDA GPG key
   sudo apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1604/x86_64/7fa2af80.pub
-  # Setting up CUDA repo
+  \# Setting up CUDA repo
   sudo add-apt-repository "deb https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1604/x86_64/ /"
-  # Refresh apt repositories
+  \# Refresh apt repositories
   sudo apt update
-  # Installing CUDA 11.2
+  \# Installing CUDA 11.2
   sudo apt install cuda-11-2
   sudo apt install cuda-toolkit-11-2
-  # Setting up path
+  \# Setting up path
   echo 'export PATH=/usr/local/cuda-11.2/bin${PATH:+:${PATH}}' >> $HOME/.bashrc
-  # You are done installing CUDA 11.2
+  \# You are done installing CUDA 11.2
   
-  # Check NVIDIA
+  \# Check NVIDIA
   nvidia-smi
-  # Update all apts
+  \# Update all apts
   sudo apt-get update
   sudo apt-get -y upgrade
   
-  # Begin installing python 3.7
+  \# Begin installing python 3.7
   curl -o ~/miniconda.sh -O https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
   chmod +x ~/miniconda.sh
   ./miniconda.sh -b
   echo "PATH=~/miniconda3/bin:$PATH" >> ~/.bashrc 
   source ~/.bashrc
   conda install -y python=3.7
-  # You are done installing python
+  \# You are done installing python
 </div>
 
 ***The following codes set you up with the Polygon Yolov5.***
