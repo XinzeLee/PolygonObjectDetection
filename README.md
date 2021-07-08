@@ -84,47 +84,47 @@ The modifications compared with Ultralytics/yolov5 and their brief descriptions 
 ## Installation
 ***For the CUDA extension to be successfully built without error, please use CUDA version >= 11.2. The codes have been verified in Ubuntu 16.04 with Tesla K80 GPU.***
 <div class="highlight highlight-source-shell position-relative">
-  <pre>
-  # The following codes install CUDA 11.2 from scratch on Ubuntu 16.04, if you have installed it, please ignore
-  # If you are using other versions of systems, please check https://tutorialforlinux.com/2019/12/01/how-to-add-cuda-repository-for-ubuntu-based-oses-2/
-  # Install Ubuntu kernel head
-  sudo apt install linux-headers-$(uname -r)
-  <br/># Pinning CUDA repo
-  wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1604/x86_64/cuda-ubuntu1604.pin
-  sudo mv cuda-ubuntu1604.pin /etc/apt/preferences.d/cuda-repository-pin-600
-  <br/># Add CUDA GPG key
-  sudo apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1604/x86_64/7fa2af80.pub
-  <br/># Setting up CUDA repo
-  sudo add-apt-repository "deb https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1604/x86_64/ /"
-  <br/># Refresh apt repositories
-  sudo apt update
-  <br/># Installing CUDA 11.2
-  sudo apt install cuda-11-2
-  sudo apt install cuda-toolkit-11-2
-  <br/># Setting up path
-  echo 'export PATH=/usr/local/cuda-11.2/bin${PATH:+:${PATH}}' >> $HOME/.bashrc
-  # You are done installing CUDA 11.2
-  <br/># Check NVIDIA
-  nvidia-smi
-  # Update all apts
-  sudo apt-get update
-  sudo apt-get -y upgrade
-  <br/># Begin installing python 3.7
-  curl -o ~/miniconda.sh -O https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
-  chmod +x ~/miniconda.sh
-  ./miniconda.sh -b
-  echo "PATH=~/miniconda3/bin:$PATH" >> ~/.bashrc 
-  source ~/.bashrc
-  conda install -y python=3.7
-  # You are done installing python</pre>
+<pre>
+# The following codes install CUDA 11.2 from scratch on Ubuntu 16.04, if you have installed it, please ignore
+# If you are using other versions of systems, please check https://tutorialforlinux.com/2019/12/01/how-to-add-cuda-repository-for-ubuntu-based-oses-2/
+# Install Ubuntu kernel head
+sudo apt install linux-headers-$(uname -r)
+<br/># Pinning CUDA repo
+wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1604/x86_64/cuda-ubuntu1604.pin
+sudo mv cuda-ubuntu1604.pin /etc/apt/preferences.d/cuda-repository-pin-600
+<br/># Add CUDA GPG key
+sudo apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1604/x86_64/7fa2af80.pub
+<br/># Setting up CUDA repo
+sudo add-apt-repository "deb https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1604/x86_64/ /"
+<br/># Refresh apt repositories
+sudo apt update
+<br/># Installing CUDA 11.2
+sudo apt install cuda-11-2
+sudo apt install cuda-toolkit-11-2
+<br/># Setting up path
+echo 'export PATH=/usr/local/cuda-11.2/bin${PATH:+:${PATH}}' >> $HOME/.bashrc
+# You are done installing CUDA 11.2
+<br/># Check NVIDIA
+nvidia-smi
+# Update all apts
+sudo apt-get update
+sudo apt-get -y upgrade
+<br/># Begin installing python 3.7
+curl -o ~/miniconda.sh -O https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
+chmod +x ~/miniconda.sh
+./miniconda.sh -b
+echo "PATH=~/miniconda3/bin:$PATH" >> ~/.bashrc 
+source ~/.bashrc
+conda install -y python=3.7
+# You are done installing python</pre>
 </div>
 
 ***The following codes set you up with the Polygon Yolov5.***
 <div class="highlight highlight-source-shell position-relative">
-  <pre>
-  git clone MODIFIED
-  cd <>
-  pip install -r requirements.txt</pre>
+<pre>
+git clone MODIFIED
+cd <>
+pip install -r requirements.txt</pre>
 </div>
 
 ## Tutorial 1
