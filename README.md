@@ -84,6 +84,7 @@ The modifications compared with Ultralytics/yolov5 and their brief descriptions 
 ## Installation
 ***For the CUDA extension to be successfully built without error, please use CUDA version >= 11.2. The codes have been verified in Ubuntu 16.04 with Tesla K80 GPU.***
 <div class="highlight highlight-source-shell position-relative">
+  <pre>
   \# The following codes install CUDA 11.2 from scratch on Ubuntu 16.04, if you have installed it, please ignore
   \# If you are using other versions of systems, please check https://tutorialforlinux.com/2019/12/01/how-to-add-cuda-repository-for-ubuntu-based-oses-2/
   \# Install Ubuntu kernel head
@@ -118,11 +119,14 @@ The modifications compared with Ultralytics/yolov5 and their brief descriptions 
   source ~/.bashrc
   conda install -y python=3.7
   \# You are done installing python
+  </pre>
 </div>
 
 ***The following codes set you up with the Polygon Yolov5.***
 <div class="highlight highlight-source-shell position-relative">
+  <pre>
   git clone MODIFIED
   cd <>
   pip install -r requirements.txt
+  </pre>
 </div>
