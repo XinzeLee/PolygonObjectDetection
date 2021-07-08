@@ -152,7 +152,6 @@ MODIFIED
 **Link**: [Google](https://www.google.com)
 
 ## Section VI. References
-* 1
-* 2
-* 3
-* 4
+* [ultralytics/yolov5](https://github.com/ultralytics/yolov5)
+* [NVIDIA/retinanet-examples](https://github.com/NVIDIA/retinanet-examples)
+* [ming71/yolov3-polygon](https://github.com/ming71/yolov3-polygon)
