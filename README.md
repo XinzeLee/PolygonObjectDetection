@@ -104,13 +104,11 @@ The modifications compared with Ultralytics/yolov5 and their brief descriptions 
   # Setting up path
   echo 'export PATH=/usr/local/cuda-11.2/bin${PATH:+:${PATH}}' >> $HOME/.bashrc
   # You are done installing CUDA 11.2
-  
   # Check NVIDIA
   nvidia-smi
   # Update all apts
   sudo apt-get update
   sudo apt-get -y upgrade
-  
   # Begin installing python 3.7
   curl -o ~/miniconda.sh -O https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh
   chmod +x ~/miniconda.sh
