@@ -149,7 +149,7 @@ MODIFIED
 </div>
 
 ## Section V. Polygon-Tutorial 2: Transform COCO dataset to polygon labels using segmentation
-**Link**: [Google - https://www.google.com/](#https://www.google.com/)
+**Link**: [Google](https://www.google.com)
 
 ## Section VI. References
 * 1
