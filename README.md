@@ -9,7 +9,6 @@ The modifications compared with Ultralytics/yolov5 and their brief descriptions 
   1. data/polygon_ucas.yaml : Exemplar UCAS-AOD dataset to test the effects of polygon boxes
   2. data/images/UCAS-AOD : For the inference of polygon-yolov5s-ucas.pt
 
-
   3. models/common.py :
     <br/> 3.1. class Polygon_NMS : Non-Maximum Suppression (NMS) module for Polygon Boxes
     <br/> 3.2. class Polygon_AutoShape : Polygon Version of Original AutoShape, input-robust polygon model wrapper for passing cv2/np/PIL/torch inputs. Includes preprocessing, inference and Polygon_NMS
@@ -67,13 +66,13 @@ The modifications compared with Ultralytics/yolov5 and their brief descriptions 
   
 ## How Does Polygon Boxes Work? How Does Polygon Boxes Different from Axis-Aligned Boxes?
   1. build_targets in class Polygon_ComputeLoss & forward in class Polygon_Detect
-<br/>![1](https://user-images.githubusercontent.com/87064748/124885337-bfaa4f00-e005-11eb-957c-404b3164ad7a.jpg)
+<br/>![1](https://user-images.githubusercontent.com/87064748/124885337-bfaa4f00-e005-11eb-957c-404b3164ad7a.jpg | width=200)
 
   2. order_corners in general.py
-<br/>![2](https://user-images.githubusercontent.com/87064748/124885357-c3d66c80-e005-11eb-90b3-d3335c2c37bf.jpg)
+<br/>![2](https://user-images.githubusercontent.com/87064748/124885357-c3d66c80-e005-11eb-90b3-d3335c2c37bf.jpg | width=200)
 
   3. Illustrations of box loss of polygon boxes
-<br/>![3](https://user-images.githubusercontent.com/87064748/124885366-c5a03000-e005-11eb-974e-14d61956955f.jpg)
+<br/>![3](https://user-images.githubusercontent.com/87064748/124885366-c5a03000-e005-11eb-974e-14d61956955f.jpg | width=200)
 
 
 
