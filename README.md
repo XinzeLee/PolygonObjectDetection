@@ -67,12 +67,12 @@ The modifications compared with Ultralytics/yolov5 and their brief descriptions 
 ## How Does Polygon Boxes Work? How Does Polygon Boxes Different from Axis-Aligned Boxes?
   1. build_targets in class Polygon_ComputeLoss & forward in class Polygon_Detect
 <br/>
-<img src="https://user-images.githubusercontent.com/87064748/124885337-bfaa4f00-e005-11eb-957c-404b3164ad7a.jpg" width="800">
+<center><img src="https://user-images.githubusercontent.com/87064748/124885337-bfaa4f00-e005-11eb-957c-404b3164ad7a.jpg" width="800"></center>
   2. order_corners in general.py
 <br/>
-<img src="https://user-images.githubusercontent.com/87064748/124885357-c3d66c80-e005-11eb-90b3-d3335c2c37bf.jpg" width="800">
+<center><img src="https://user-images.githubusercontent.com/87064748/124885357-c3d66c80-e005-11eb-90b3-d3335c2c37bf.jpg" width="800"></center>
   3. Illustrations of box loss of polygon boxes
 <br/>
-<img src="https://user-images.githubusercontent.com/87064748/124885366-c5a03000-e005-11eb-974e-14d61956955f.jpg" width="516">
+<center><img src="https://user-images.githubusercontent.com/87064748/124885366-c5a03000-e005-11eb-974e-14d61956955f.jpg" width="516"></center>
 
 
