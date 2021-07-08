@@ -116,8 +116,7 @@ The modifications compared with Ultralytics/yolov5 and their brief descriptions 
   echo "PATH=~/miniconda3/bin:$PATH" >> ~/.bashrc 
   source ~/.bashrc
   conda install -y python=3.7
-  # You are done installing python
-  </pre>
+  # You are done installing python</pre>
 </div>
 
 ***The following codes set you up with the Polygon Yolov5.***
@@ -125,6 +124,7 @@ The modifications compared with Ultralytics/yolov5 and their brief descriptions 
   <pre>
   git clone MODIFIED
   cd <>
-  pip install -r requirements.txt
-  </pre>
+  pip install -r requirements.txt</pre>
 </div>
+
+## Tutorial 1
