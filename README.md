@@ -131,31 +131,31 @@ pip install -r requirements.txt</pre>
 **Try Polygon Yolov5s Model by Following** [Polygon-Tutorial 1](https://github.com/XinzeLee/PolygonObjectDetection/blob/main/polygon-yolov5/Polygon-Tutorial1.ipynb)
 ### 1. Inference
 <div class="highlight highlight-source-shell position-relative">
-<pre>
-$ python polygon_detect.py --weights polygon-yolov5s-ucas.pt --img 1024 --conf 0.75 \
-    --source data/images/UCAS-AOD --iou-thres 0.4 --hide-labels
-</pre>
+  <pre>
+  $ python polygon_detect.py --weights polygon-yolov5s-ucas.pt --img 1024 --conf 0.75 \
+      --source data/images/UCAS-AOD --iou-thres 0.4 --hide-labels
+  </pre>
+</div>
 <p align="center">
   <img src="https://user-images.githubusercontent.com/87064748/125021658-ad83eb80-e0ad-11eb-9a61-7824cc09b4ba.png" width="500">
 </p>
-</div>
 ### 2. Test
 <div class="highlight highlight-source-shell position-relative">
-<pre>
-$ python polygon_test.py --weights polygon-yolov5s-ucas.pt --data polygon_ucas.yaml \
-    --img 1024 --iou 0.65 --task val
-</pre>
+  <pre>
+  $ python polygon_test.py --weights polygon-yolov5s-ucas.pt --data polygon_ucas.yaml \
+      --img 1024 --iou 0.65 --task val
+  </pre>
+</div>
 <p align="center">
   <img src="https://user-images.githubusercontent.com/87064748/125021771-ddcb8a00-e0ad-11eb-8a4e-bef79280c258.png" width="500">
 </p>
-</div>
 ### 3. Train
 <div class="highlight highlight-source-shell position-relative">
-<pre>
-$ python polygon_train.py --weights polygon-yolov5s-ucas.pt --cfg polygon_yolov5s_ucas.yaml \
-    --data polygon_ucas.yaml --hyp hyp.ucas.yaml --img-size 1024 \
-    --epochs 3 --batch-size 12 --noautoanchor --polygon --cache
-</pre>
+  <pre>
+  $ python polygon_train.py --weights polygon-yolov5s-ucas.pt --cfg polygon_yolov5s_ucas.yaml \
+      --data polygon_ucas.yaml --hyp hyp.ucas.yaml --img-size 1024 \
+      --epochs 3 --batch-size 12 --noautoanchor --polygon --cache
+  </pre>
 </div>
 ### 4. Performance
 <div class="highlight highlight-source-shell position-relative">
