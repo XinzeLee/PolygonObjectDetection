@@ -93,14 +93,14 @@ sudo apt install linux-headers-$(uname -r)
 wget https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1604/x86_64/cuda-ubuntu1604.pin
 sudo mv cuda-ubuntu1604.pin /etc/apt/preferences.d/cuda-repository-pin-600
 <br/># Add CUDA GPG key
-sudo apt-key adv --fetch-keys https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1604/x86_64/7fa2af80.pub
+sudo apt-key adv --fetch-keys http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1604/x86_64/7fa2af80.pub
 <br/># Setting up CUDA repo
 sudo add-apt-repository "deb https://developer.download.nvidia.com/compute/cuda/repos/ubuntu1604/x86_64/ /"
 <br/># Refresh apt repositories
 sudo apt update
 <br/># Installing CUDA 11.2
-sudo apt install cuda-11-2
-sudo apt install cuda-toolkit-11-2
+sudo apt install cuda-11-2 -y
+sudo apt install cuda-toolkit-11-2 -y
 <br/># Setting up path
 echo 'export PATH=/usr/local/cuda-11.2/bin${PATH:+:${PATH}}' >> $HOME/.bashrc
 # You are done installing CUDA 11.2
@@ -122,9 +122,16 @@ conda install -y python=3.7
 ***The following codes set you up with the Polygon Yolov5.***
 <div class="highlight highlight-source-shell position-relative">
 <pre>
-git clone MODIFIED
-cd <>
-pip install -r requirements.txt</pre>
+# clone git repo
+git clone https://github.com/XinzeLee/PolygonObjectDetection
+cd PolygonObjectDetection/polygon-yolov5
+# install python package requirements
+pip install -r requirements.txt
+# install CUDA extensions
+cd utils/iou_cuda
+python setup.py install
+# cd back to polygon-yolov5 folder
+cd .. && cd ..</pre>
 </div>
 
 ## Section IV. Polygon-Tutorial 1: Deploy the Polygon Yolov5s
