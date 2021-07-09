@@ -136,8 +136,7 @@ pip install -r requirements.txt</pre>
           --source data/images/UCAS-AOD --iou-thres 0.4 --hide-labels</pre>
       <p align="center">
       <img src="https://user-images.githubusercontent.com/87064748/125021658-ad83eb80-e0ad-11eb-9a61-7824cc09b4ba.png" width="500">
-      </p>
-    </div>
+      </p></div>
   2. **Test**
     <div class="highlight highlight-source-shell position-relative">
       <pre>
@@ -145,15 +144,13 @@ pip install -r requirements.txt</pre>
           --img 1024 --iou 0.65 --task val</pre>
       <p align="center">
       <img src="https://user-images.githubusercontent.com/87064748/125021771-ddcb8a00-e0ad-11eb-8a4e-bef79280c258.png" width="500">
-      </p>
-    </div>
+      </p></div>
   3. **Train**
     <div class="highlight highlight-source-shell position-relative">
       <pre>
       $ python polygon_train.py --weights polygon-yolov5s-ucas.pt --cfg polygon_yolov5s_ucas.yaml \
           --data polygon_ucas.yaml --hyp hyp.ucas.yaml --img-size 1024 \
-          --epochs 3 --batch-size 12 --noautoanchor --polygon --cache</pre>
-    </div>
+          --epochs 3 --batch-size 12 --noautoanchor --polygon --cache</pre></div>
   4. **Performance**
     <div class="highlight highlight-source-shell position-relative">
       4.1. Confusion Matrix
@@ -180,8 +177,7 @@ pip install -r requirements.txt</pre>
         <br/>
         <p align="center">
         <img src="https://user-images.githubusercontent.com/87064748/125020836-23875300-e0ac-11eb-9b6f-4971c78663a5.png" width="500">
-        </p>
-    </div>
+        </p></div>
 
 ## Section V. Polygon-Tutorial 2: Transform COCO Dataset to Polygon Labels Using Segmentation
 **Transform COCO Dataset to Polygon Labels by Following** [Polygon-Tutorial 2](https://github.com/XinzeLee/PolygonObjectDetection/blob/main/polygon-yolov5/Polygon-Tutorial2.ipynb]
