@@ -198,7 +198,6 @@ cd .. && cd ..</pre>
 
 ## Section VI. Expansion to More Than Four Corners
 <div class="highlight highlight-source-shell position-relative">
-  Transformed Exemplar Figure
   <br/>
   <p align="center">
   <img src="https://user-images.githubusercontent.com/87064748/125053398-a2de4c00-e0d7-11eb-8dd2-fbe803a7b428.jpg" width="600">
