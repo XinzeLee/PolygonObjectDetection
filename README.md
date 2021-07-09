@@ -196,8 +196,16 @@ cd .. && cd ..</pre>
   </p>
 </div>
 
+## Section VI. Expansion to More Than Four Corners
+<div class="highlight highlight-source-shell position-relative">
+  Transformed Exemplar Figure
+  <br/>
+  <p align="center">
+  <img src="https://user-images.githubusercontent.com/87064748/125053398-a2de4c00-e0d7-11eb-8dd2-fbe803a7b428.jpg" width="600">
+  </p>
+</div>
 
-## Section VI. References
+## Section VII. References
 * [ultralytics/yolov5](https://github.com/ultralytics/yolov5)
 * [NVIDIA/retinanet-examples](https://github.com/NVIDIA/retinanet-examples)
 * [ming71/yolov3-polygon](https://github.com/ming71/yolov3-polygon)
