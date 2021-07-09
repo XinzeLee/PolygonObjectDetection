@@ -128,7 +128,7 @@ pip install -r requirements.txt</pre>
 </div>
 
 ## Section IV. Polygon-Tutorial 1: Deploy the Polygon Yolov5s
-**Try Polygon Yolov5s Model by Following** [Polygon-Tutorial 1 - https://github.com/XinzeLee/PolygonObjectDetection/blob/main/polygon-yolov5/Polygon-Tutorial1.ipynb](#https://github.com/XinzeLee/PolygonObjectDetection/blob/main/polygon-yolov5/Polygon-Tutorial1.ipynb)
+**Try Polygon Yolov5s Model by Following** [Polygon-Tutorial 1](https://github.com/XinzeLee/PolygonObjectDetection/blob/main/polygon-yolov5/Polygon-Tutorial1.ipynb)
 ### 1. Inference
 <div class="highlight highlight-source-shell position-relative">
 <pre>
@@ -155,40 +155,40 @@ $ python polygon_train.py --weights polygon-yolov5s-ucas.pt --cfg polygon_yolov5
 </div>
 ### 4. Performance
 <div class="highlight highlight-source-shell position-relative">
-  4.1. Confusion Matrix
+  #### 4.1. Confusion Matrix
   <br/>
   <p align="center">
-  <img src="https://user-images.githubusercontent.com/87064748/125020614-c25f7f80-e0ab-11eb-9d11-eb2f918b8dee.png" width="300">
+  <img src="https://user-images.githubusercontent.com/87064748/125020614-c25f7f80-e0ab-11eb-9d11-eb2f918b8dee.png" width="500">
   </p>
-  4.2. Precision Curve
+  #### 4.2. Precision Curve
   <br/>
   <p align="center">
-  <img src="https://user-images.githubusercontent.com/87064748/125020716-f044c400-e0ab-11eb-8031-93a2cfede2cc.png" width="300">
+  <img src="https://user-images.githubusercontent.com/87064748/125020716-f044c400-e0ab-11eb-8031-93a2cfede2cc.png" width="500">
   </p>
-  4.3. Recall Curve
+  #### 4.3. Recall Curve
   <br/>
   <p align="center">
-  <img src="https://user-images.githubusercontent.com/87064748/125020755-0488c100-e0ac-11eb-898e-d9399778f4bc.png" width="300">
+  <img src="https://user-images.githubusercontent.com/87064748/125020755-0488c100-e0ac-11eb-898e-d9399778f4bc.png" width="500">
   </p>
-  4.4. Precision-Recall Curve
+  #### 4.4. Precision-Recall Curve
   <br/>
   <p align="center">
-  <img src="https://user-images.githubusercontent.com/87064748/125020796-15393700-e0ac-11eb-8eb9-ade967396fc9.png" width="300">
+  <img src="https://user-images.githubusercontent.com/87064748/125020796-15393700-e0ac-11eb-8eb9-ade967396fc9.png" width="500">
   </p>
-  4.5. F1 Curve
+  #### 4.5. F1 Curve
   <br/>
   <p align="center">
-  <img src="https://user-images.githubusercontent.com/87064748/125020836-23875300-e0ac-11eb-9b6f-4971c78663a5.png" width="300">
+  <img src="https://user-images.githubusercontent.com/87064748/125020836-23875300-e0ac-11eb-9b6f-4971c78663a5.png" width="500">
   </p>
 </div>
 
 ## Section V. Polygon-Tutorial 2: Transform COCO Dataset to Polygon Labels Using Segmentation
-**Transform COCO Dataset to Polygon Labels by Following** [Polygon-Tutorial 2 - https://github.com/XinzeLee/PolygonObjectDetection/blob/main/polygon-yolov5/Polygon-Tutorial2.ipynb](#https://github.com/XinzeLee/PolygonObjectDetection/blob/main/polygon-yolov5/Polygon-Tutorial2.ipynb)
+**Transform COCO Dataset to Polygon Labels by Following** [Polygon-Tutorial 2](https://github.com/XinzeLee/PolygonObjectDetection/blob/main/polygon-yolov5/Polygon-Tutorial2.ipynb]
 <div class="highlight highlight-source-shell position-relative">
   Transformed Exemplar Figure
   <br/>
   <p align="center">
-  <img src="https://user-images.githubusercontent.com/87064748/125021205-c2ac4a80-e0ac-11eb-803f-0e2e652e02f5.png" width="300">
+  <img src="https://user-images.githubusercontent.com/87064748/125021205-c2ac4a80-e0ac-11eb-803f-0e2e652e02f5.png" width="500">
   </p>
 </div>
 
