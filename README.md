@@ -135,7 +135,9 @@ pip install -r requirements.txt</pre>
 $ python polygon_detect.py --weights polygon-yolov5s-ucas.pt --img 1024 --conf 0.75 \
     --source data/images/UCAS-AOD --iou-thres 0.4 --hide-labels
 </pre>
-**\>\>**
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/87064748/125021658-ad83eb80-e0ad-11eb-9a61-7824cc09b4ba.png" width="500">
+</p>
 </div>
 ### 2. Test
 <div class="highlight highlight-source-shell position-relative">
@@ -143,7 +145,9 @@ $ python polygon_detect.py --weights polygon-yolov5s-ucas.pt --img 1024 --conf 0
 $ python polygon_test.py --weights polygon-yolov5s-ucas.pt --data polygon_ucas.yaml \
     --img 1024 --iou 0.65 --task val
 </pre>
-**\>\>**
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/87064748/125021771-ddcb8a00-e0ad-11eb-8a4e-bef79280c258.png" width="500">
+</p>
 </div>
 ### 3. Train
 <div class="highlight highlight-source-shell position-relative">
