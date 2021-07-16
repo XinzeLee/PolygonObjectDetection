@@ -1111,11 +1111,32 @@ def dataset_stats(path='coco128.yaml', autodownload=False, verbose=False):
 # Ancillary functions with polygon anchor boxes-------------------------------------------------------------------------------------------
 
 def polygon_random_perspective(img, targets=(), segments=(), degrees=10, translate=.1, scale=.1, shear=10, perspective=0.0,
-                       border=(0, 0)):
+                       border=(0, 0), mosaic=False):
     """
         torchvision.transforms.RandomAffine(degrees=(-10, 10), translate=(.1, .1), scale=(.9, 1.1), shear=(-10, 10))
         targets = [cls, xyxyxyxy]
     """
+    # To restrict the polygon boxes within images, avoiding bad labels after augmentation
+    def restrict(img, new, shape0, padding=(0, 0, 0, 0)):
+        height, width = shape0
+        top0, bottom0, left0, right0 = np.ceil(padding[0]), np.floor(padding[1]), np.floor(padding[2]), np.ceil(padding[3])
+        
+        # keep the original shape of image
+        if (height/width) < ((height+bottom0+top0)/(width+left0+right0)):
+            dw = int((height+bottom0+top0)/height*width)-(width+left0+right0)
+            top, bottom, left, right = map(int, (top0, bottom0, left0+dw/2, right0+dw/2))
+        else:
+            dh = int((width+left0+right0)*height/width)-(height+bottom0+top0)
+            top, bottom, left, right = map(int, (top0+dh/2, bottom0+dh/2, left0, right0))
+
+        img = cv2.copyMakeBorder(img, bottom, top, left, right, cv2.BORDER_CONSTANT, value=(114, 114, 114))
+        img = cv2.resize(img, (width, height), interpolation=cv2.INTER_LINEAR)
+
+        w_r, h_r = width/(width+left+right), height/(height+bottom+top)
+        new[:, 0::2] = (new[:, 0::2]+left)*w_r
+        new[:, 1::2] = (new[:, 1::2]+bottom)*h_r
+        return img, new
+    
 
     height = img.shape[0] + border[0] * 2  # shape(h,w,c)
     width = img.shape[1] + border[1] * 2
@@ -1174,6 +1195,14 @@ def polygon_random_perspective(img, targets=(), segments=(), degrees=10, transla
         xy = xy @ M.T  # transform
         new = (xy[:, :2] / xy[:, 2:3] if perspective else xy[:, :2]).reshape(n, 8)  # perspective rescale or affine
         
+        # Restrict the size of polygon labels only if not mosaic; if mosaic, simply clip the labels (might become bad labels)
+        if not mosaic:
+            # Compute Top, Bottom, Left, Right Padding to Include Polygon Boxes inside Image
+            top = max(new[:, 1::2].max().item()-height, 0)
+            bottom = abs(min(new[:, 1::2].min().item(), 0))
+            left = abs(min(new[:, 0::2].min().item(), 0))
+            right = max(new[:, 0::2].max().item()-width, 0)
+            img, new = restrict(img, new, (height, width), (top, bottom, left, right))
         new[:, 0::2] = new[:, 0::2].clip(0., width)
         new[:, 1::2] = new[:, 1::2].clip(0., height)
         
@@ -1478,7 +1507,8 @@ def polygon_load_mosaic(self, index):
                                                scale=self.hyp['scale'],
                                                shear=self.hyp['shear'],
                                                perspective=self.hyp['perspective'],
-                                               border=self.mosaic_border)  # border to remove
+                                               border=self.mosaic_border,
+                                               mosaic=True)  # border to remove
 
     return img4, labels4
 
@@ -1551,7 +1581,8 @@ def polygon_load_mosaic9(self, index):
                                                scale=self.hyp['scale'],
                                                shear=self.hyp['shear'],
                                                perspective=self.hyp['perspective'],
-                                               border=self.mosaic_border)  # border to remove
+                                               border=self.mosaic_border,
+                                               mosaic=True)  # border to remove
 
     return img9, labels9
 
@@ -1576,8 +1607,9 @@ def polygon_verify_image_label(params):
             segments = [x[1:].reshape(-1, 2) for x in l]  # ((x1, y1), (x2, y2), ...)
             if len(l):
                 assert l.shape[1] == 9, 'labels require 9 columns each'
-                assert (l >= 0).all(), 'negative labels'
-                assert (l[:, 1:] <= 1).all(), 'non-normalized or out of bounds coordinate labels'
+                # Common out following lines to enable: polygon corners can be out of images
+                # assert (l >= 0).all(), 'negative labels'
+                # assert (l[:, 1:] <= 1).all(), 'non-normalized or out of bounds coordinate labels'
                 assert np.unique(l, axis=0).shape[0] == l.shape[0], 'duplicate labels'
             else:
                 ne = 1  # label empty
