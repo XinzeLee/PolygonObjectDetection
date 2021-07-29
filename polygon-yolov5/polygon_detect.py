@@ -14,6 +14,23 @@ from utils.general import check_img_size, check_requirements, check_imshow, non_
 from utils.plots import colors, plot_one_box, polygon_plot_one_box
 from utils.torch_utils import select_device, load_classifier, time_synchronized
 
+import subprocess as sp
+import os
+def get_gpu_memory():
+    _output_to_list = lambda x: x.decode('ascii').split('\n')[:-1]
+    COMMAND1 = "nvidia-smi --query-gpu=memory.free --format=csv"
+    COMMAND2 = "nvidia-smi --query-gpu=memory.used --format=csv"
+    COMMAND3 = "nvidia-smi --query-gpu=memory.total --format=csv"
+    memory_free_info = _output_to_list(sp.check_output(COMMAND1.split()))[1:]
+    memory_free_values = [int(x.split()[0])/1024 for i, x in enumerate(memory_free_info)]
+    memory_used_info = _output_to_list(sp.check_output(COMMAND2.split()))[1:]
+    memory_used_values = [int(x.split()[0])/1024 for i, x in enumerate(memory_used_info)]
+    memory_total_info = _output_to_list(sp.check_output(COMMAND3.split()))[1:]
+    memory_total_values = [int(x.split()[0])/1024 for i, x in enumerate(memory_total_info)]
+    print(f'{"Used":18s}\t{"Free":18s}\t{"Total":18s}')
+    for free, used, total in zip(memory_free_values, memory_used_values, memory_total_values):
+        print(f'{used:.3f} {"GB": <6s}{used/total:<9.2%}\t{free:.3f} {"GB": <6s}{free/total:<9.2%}\t{used:.2f}')
+        
 
 @torch.no_grad()
 def detect(weights='polygon-yolov5s-ucas.pt',  # model.pt path(s)
@@ -60,6 +77,7 @@ def detect(weights='polygon-yolov5s-ucas.pt',  # model.pt path(s)
     names = model.module.names if hasattr(model, 'module') else model.names  # get class names
     if half:
         model.half()  # to FP16
+    get_gpu_memory()
 
     # Polygon does not support second-stage classifier
     classify = False
