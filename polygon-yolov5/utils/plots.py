@@ -538,7 +538,7 @@ def polygon_plot_images(images, targets, paths=None, fname='images.jpg', names=N
             conf = None if labels else image_targets[:, 10]  # check for confidence presence (label vs pred)
 
             if boxes.shape[1]:
-                if boxes.max() <= 1.01:  # if normalized with tolerance 0.01
+                if boxes.max() <= 2.:  # if normalized with tolerance 1.0 (large tolerance allows four corners to be out of images)
                     boxes[0::2] *= w  # scale to pixels
                     boxes[1::2] *= h
                 elif scale_factor < 1:  # absolute coords need scale if image scales
