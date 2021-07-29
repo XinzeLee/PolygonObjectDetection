@@ -168,7 +168,8 @@ def test(data,
             # W&B logging - Media Panel plots
             if wandb_logger and wandb_logger.wandb:
                 # check for test operations
-                if (wandb_logger.current_epoch > 0) and (wandb_logger.current_epoch % wandb_logger.bbox_interval == 0):
+                if ((wandb_logger.current_epoch > 0) and (wandb_logger.bbox_interval > 1) 
+                    and (wandb_logger.current_epoch % wandb_logger.bbox_interval == 0)):
                     if batch_i == 0:
                         if wandb_logger.current_epoch == wandb_logger.bbox_interval:
                             f = save_dir / f'test_batch{batch_i}_labels.jpg'  # predictions
