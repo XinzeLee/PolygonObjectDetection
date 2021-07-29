@@ -381,7 +381,13 @@ class Polygon_ComputeLoss:
             t[:, 2:10] = order_corners(t[:, 2:10])
             a = t[:, 10].long()  # anchor indices
             indices.append((b, a, gj.clamp_(0, gain[3] - 1), gi.clamp_(0, gain[2] - 1)))  # image, anchor, grid indices
+            
+            # same corners, different center points, different relative positions
             tbox.append(t[:, 2:10]-gij.repeat(1, 4))  # polygon box
+            # different corners, different center points, same relative positions
+            # gij_origin = (gxy-0).long()
+            # tbox.append(t[:, 2:10]-gij_origin.repeat(1, 4))
+            
             anch.append(anchors[a])  # anchors
             tcls.append(c)  # class
 
