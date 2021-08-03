@@ -29,7 +29,7 @@ def get_gpu_memory():
     memory_total_values = [int(x.split()[0])/1024 for i, x in enumerate(memory_total_info)]
     print(f'{"Used":18s}\t{"Free":18s}\t{"Total":18s}')
     for free, used, total in zip(memory_free_values, memory_used_values, memory_total_values):
-        print(f'{used:.3f} {"GB": <6s}{used/total:<9.2%}\t{free:.3f} {"GB": <6s}{free/total:<9.2%}\t{used:.2f}')
+        print(f'{used:.3f} {"GB": <6s}{used/total:<9.2%}\t{free:.3f} {"GB": <6s}{free/total:<9.2%}\t{total:.2f}')
         
 
 @torch.no_grad()
