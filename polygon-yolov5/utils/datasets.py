@@ -1116,28 +1116,24 @@ def polygon_random_perspective(img, targets=(), segments=(), degrees=10, transla
         torchvision.transforms.RandomAffine(degrees=(-10, 10), translate=(.1, .1), scale=(.9, 1.1), shear=(-10, 10))
         targets = [cls, xyxyxyxy]
     """
-    # To restrict the polygon boxes within images, avoiding bad labels after augmentation
-    def restrict(img, new, shape0, padding=(0, 0, 0, 0)):
-        height, width = shape0
-        top0, bottom0, left0, right0 = np.ceil(padding[0]), np.floor(padding[1]), np.floor(padding[2]), np.ceil(padding[3])
+#     To restrict the polygon boxes within images
+#     def restrict(img, new, shape0, padding=(0, 0, 0, 0)):
+#         height, width = shape0
+#         top0, bottom0, left0, right0 = np.ceil(padding[0]), np.floor(padding[1]), np.floor(padding[2]), np.ceil(padding[3])
+#         # keep the original shape of image
+#         if (height/width) < ((height+bottom0+top0)/(width+left0+right0)):
+#             dw = int((height+bottom0+top0)/height*width)-(width+left0+right0)
+#             top, bottom, left, right = map(int, (top0, bottom0, left0+dw/2, right0+dw/2))
+#         else:
+#             dh = int((width+left0+right0)*height/width)-(height+bottom0+top0)
+#             top, bottom, left, right = map(int, (top0+dh/2, bottom0+dh/2, left0, right0))
+#         img = cv2.copyMakeBorder(img, bottom, top, left, right, cv2.BORDER_CONSTANT, value=(114, 114, 114))
+#         img = cv2.resize(img, (width, height), interpolation=cv2.INTER_LINEAR)
+#         w_r, h_r = width/(width+left+right), height/(height+bottom+top)
+#         new[:, 0::2] = (new[:, 0::2]+left)*w_r
+#         new[:, 1::2] = (new[:, 1::2]+bottom)*h_r
+#         return img, new
         
-        # keep the original shape of image
-        if (height/width) < ((height+bottom0+top0)/(width+left0+right0)):
-            dw = int((height+bottom0+top0)/height*width)-(width+left0+right0)
-            top, bottom, left, right = map(int, (top0, bottom0, left0+dw/2, right0+dw/2))
-        else:
-            dh = int((width+left0+right0)*height/width)-(height+bottom0+top0)
-            top, bottom, left, right = map(int, (top0+dh/2, bottom0+dh/2, left0, right0))
-
-        img = cv2.copyMakeBorder(img, bottom, top, left, right, cv2.BORDER_CONSTANT, value=(114, 114, 114))
-        img = cv2.resize(img, (width, height), interpolation=cv2.INTER_LINEAR)
-
-        w_r, h_r = width/(width+left+right), height/(height+bottom+top)
-        new[:, 0::2] = (new[:, 0::2]+left)*w_r
-        new[:, 1::2] = (new[:, 1::2]+bottom)*h_r
-        return img, new
-    
-
     height = img.shape[0] + border[0] * 2  # shape(h,w,c)
     width = img.shape[1] + border[1] * 2
 
@@ -1171,17 +1167,7 @@ def polygon_random_perspective(img, targets=(), segments=(), degrees=10, transla
 
     # Combined rotation matrix
     M = T @ S @ R @ P @ C  # order of operations (right to left) is IMPORTANT
-    if (border[0] != 0) or (border[1] != 0) or (M != np.eye(3)).any():  # image changed
-        if perspective:
-            img = cv2.warpPerspective(img, M, dsize=(width, height), borderValue=(114, 114, 114))
-        else:  # affine
-            img = cv2.warpAffine(img, M[:2], dsize=(width, height), borderValue=(114, 114, 114))
-
-    # Visualize
-    # import matplotlib.pyplot as plt
-    # ax = plt.subplots(1, 2, figsize=(12, 6))[1].ravel()
-    # ax[0].imshow(img[:, :, ::-1])  # base
-    # ax[1].imshow(img2[:, :, ::-1])  # warped
+    image_transformed = False
 
     # Transform label coordinates
     n = len(targets)
@@ -1195,22 +1181,53 @@ def polygon_random_perspective(img, targets=(), segments=(), degrees=10, transla
         xy = xy @ M.T  # transform
         new = (xy[:, :2] / xy[:, 2:3] if perspective else xy[:, :2]).reshape(n, 8)  # perspective rescale or affine
         
-        # Restrict the size of polygon labels only if not mosaic; if mosaic, simply clip the labels (might become bad labels)
         if not mosaic:
             # Compute Top, Bottom, Left, Right Padding to Include Polygon Boxes inside Image
             top = max(new[:, 1::2].max().item()-height, 0)
             bottom = abs(min(new[:, 1::2].min().item(), 0))
             left = abs(min(new[:, 0::2].min().item(), 0))
             right = max(new[:, 0::2].max().item()-width, 0)
-            img, new = restrict(img, new, (height, width), (top, bottom, left, right))
-        new[:, 0::2] = new[:, 0::2].clip(0., width)
-        new[:, 1::2] = new[:, 1::2].clip(0., height)
+            
+            R2 = np.eye(3)
+            r = min(height/(height+top+bottom), width/(width+left+right))
+            R2[:2] = cv2.getRotationMatrix2D(angle=0., center=(0, 0), scale=r)
+            M2 = T @ S @ R @ R2 @ P @ C  # order of operations (right to left) is IMPORTANT
+            
+            if (border[0] != 0) or (border[1] != 0) or (M2 != np.eye(3)).any():  # image changed
+                if perspective:
+                    img = cv2.warpPerspective(img, M2, dsize=(width, height), borderValue=(114, 114, 114))
+                else:  # affine
+                    img = cv2.warpAffine(img, M2[:2], dsize=(width, height), borderValue=(114, 114, 114))
+                image_transformed = True
+                new = np.zeros((n, 8))
+                xy = np.ones((n * 4, 3))
+                xy[:, :2] = targets[:, 1:].reshape(n * 4, 2)
+                xy = xy @ M2.T  # transform
+                new = (xy[:, :2] / xy[:, 2:3] if perspective else xy[:, :2]).reshape(n, 8)  # perspective rescale or affine
+            # img, new = restrict(img, new, (height, width), (top, bottom, left, right))
+        
+        # Use the following two lines can result in slightly tilting for few labels.
+        # new[:, 0::2] = new[:, 0::2].clip(0., width)
+        # new[:, 1::2] = new[:, 1::2].clip(0., height)
+        # If use following codes instead, can mitigate tilting problems, but result in few label exceeding problems.
+        cx, cy = new[:, 0::2].mean(-1), new[:, 1::2].mean(-1)
+        new[(cx>width)|(cx<-0.)|(cy>height)|(cy<-0.)] = 0.
         
         # filter candidates
         # 0.1 for axis-aligned rectangle, 0.01 for segmentation, so choose intermediate 0.08
         i = polygon_box_candidates(box1=targets[:, 1:].T * s, box2=new.T, area_thr=0.08) 
         targets = targets[i]
         targets[:, 1:] = new[i]
+        
+    if not image_transformed:
+        M = T @ S @ R @ P @ C  # order of operations (right to left) is IMPORTANT
+        if (border[0] != 0) or (border[1] != 0) or (M != np.eye(3)).any():  # image changed
+            if perspective:
+                img = cv2.warpPerspective(img, M, dsize=(width, height), borderValue=(114, 114, 114))
+            else:  # affine
+                img = cv2.warpAffine(img, M[:2], dsize=(width, height), borderValue=(114, 114, 114))
+            image_transformed = True
+        
     return img, targets
 
 
