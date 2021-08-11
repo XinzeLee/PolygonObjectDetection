@@ -23,7 +23,7 @@ from torch.utils.data import Dataset
 from tqdm import tqdm
 
 from utils.general import check_requirements, check_file, check_dataset, xyxy2xywh, xywh2xyxy, xywhn2xyxy, xyn2xy, \
-    xyxyxyxyn2xyxyxyxy, segment2box, segments2boxes, resample_segments, clean_str
+    xyxyxyxyn2xyxyxyxy, segment2box, segments2boxes, resample_segments, clean_str, colorstr
 from utils.torch_utils import torch_distributed_zero_first
 
 # Parameters
@@ -1258,6 +1258,9 @@ class Polygon_LoadImagesAndLabels(Dataset):  # for training/testing
         self.mosaic_border = [-img_size // 2, -img_size // 2]
         self.stride = stride
         self.path = path
+        
+        # albumentation
+        self.albumentations = Albumentations() if augment else None
 
         try:
             f = []  # image files
@@ -1442,6 +1445,9 @@ class Polygon_LoadImagesAndLabels(Dataset):  # for training/testing
             labels[:, 1::2] /= img.shape[1]  # normalized width 0-1
 
         if self.augment:
+            # albumentation
+            img = self.albumentations(img)
+            
             # flip up-down for all y
             if random.random() < hyp['flipud']:
                 img = np.flipud(img)
@@ -1639,3 +1645,30 @@ def polygon_verify_image_label(params):
         nc = 1
         logging.info(f'{prefix}WARNING: Ignoring corrupted image and/or label {im_file}: {e}')
         return [None] * 4 + [nm, nf, ne, nc]
+    
+class Albumentations:
+    # Polygon YOLOv5 Albumentations class (optional, only used if package is installed)
+    def __init__(self):
+        self.transform = None
+        try:
+            import albumentations as A
+
+            self.transform = A.Compose([
+                A.MedianBlur(p=0.05),
+                A.ToGray(p=0.1),
+                A.RandomBrightnessContrast(p=0.35),
+                A.CLAHE(p=0.2),
+                A.InvertImg(p=0.3)],)
+                # Not support for any position change to image
+
+            logging.info(colorstr('albumentations: ') + ', '.join(f'{x}' for x in self.transform.transforms if x.p))
+        except ImportError:  # package not installed, skip
+            pass
+        except Exception as e:
+            logging.info(colorstr('albumentations: ') + f'{e}')
+
+    def __call__(self, im, p=1.0):
+        if self.transform and random.random() < p:
+            new = self.transform(image=im)  # transformed
+            im = new['image']
+        return im
