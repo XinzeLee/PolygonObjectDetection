@@ -187,7 +187,7 @@ cd .. && cd ..</pre>
         </p></div>
 
 ## Section V. Polygon-Tutorial 2: Transform COCO Dataset to Polygon Labels Using Segmentation
-**Transform COCO Dataset to Polygon Labels by Following** [Polygon-Tutorial 2](https://github.com/XinzeLee/PolygonObjectDetection/blob/main/polygon-yolov5/Polygon-Tutorial2.ipynb]
+**Transform COCO Dataset to Polygon Labels by Following** [Polygon-Tutorial 2](https://github.com/XinzeLee/PolygonObjectDetection/blob/main/polygon-yolov5/Polygon-Tutorial2.ipynb)
 <div class="highlight highlight-source-shell position-relative">
   Transformed Exemplar Figure
   <br/>
