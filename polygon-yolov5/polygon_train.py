@@ -440,8 +440,7 @@ def train(hyp, opt, device, tb_writer=None, polygon=False):
                                               dataloader=testloader,
                                               save_dir=save_dir,
                                               save_json=True,
-                                              plots=False,
-                                              polygon=True)
+                                              plots=False)
 
             # Strip optimizers
             for f in last, best:
