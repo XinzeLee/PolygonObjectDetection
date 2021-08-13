@@ -122,7 +122,6 @@ conda install -y python=3.7
 
 ***The following codes set you up with the Polygon Yolov5.***
 <div class="highlight highlight-source-shell position-relative">
-<pre>
 ```# clone git repo
 git clone https://github.com/XinzeLee/PolygonObjectDetection
 cd PolygonObjectDetection/polygon-yolov5
@@ -133,7 +132,7 @@ cd utils/iou_cuda
 python setup.py install
 # cd back to polygon-yolov5 folder
 cd .. && cd ..
-```</pre>
+```
 </div>
 
 ## Section IV. Polygon-Tutorial 1: Deploy the Polygon Yolov5s
