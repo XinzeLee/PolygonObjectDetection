@@ -85,7 +85,7 @@ The modifications compared with Ultralytics/yolov5 and their brief descriptions 
 ***For the CUDA extension to be successfully built without error, please use CUDA version >= 11.2. The codes have been verified in Ubuntu 16.04 with Tesla K80 GPU.***
 <div class="highlight highlight-source-shell position-relative">
 <pre>
-```# The following codes install CUDA 11.2 from scratch on Ubuntu 16.04, if you have installed it, please ignore
+# The following codes install CUDA 11.2 from scratch on Ubuntu 16.04, if you have installed it, please ignore
 # If you are using other versions of systems, please check https://tutorialforlinux.com/2019/12/01/how-to-add-cuda-repository-for-ubuntu-based-oses-2/
 # Install Ubuntu kernel head
 sudo apt install linux-headers-$(uname -r)
@@ -116,13 +116,13 @@ chmod +x ~/miniconda.sh
 echo "PATH=~/miniconda3/bin:$PATH" >> ~/.bashrc 
 source ~/.bashrc
 conda install -y python=3.7
-# You are done installing python
-```</pre>
+# You are done installing python</pre>
 </div>
 
 ***The following codes set you up with the Polygon Yolov5.***
 <div class="highlight highlight-source-shell position-relative">
-```# clone git repo
+<pre>
+# clone git repo
 git clone https://github.com/XinzeLee/PolygonObjectDetection
 cd PolygonObjectDetection/polygon-yolov5
 # install python package requirements
@@ -131,8 +131,7 @@ pip install -r requirements.txt
 cd utils/iou_cuda
 python setup.py install
 # cd back to polygon-yolov5 folder
-cd .. && cd ..
-```
+cd .. && cd ..</pre>
 </div>
 
 ## Section IV. Polygon-Tutorial 1: Deploy the Polygon Yolov5s
@@ -140,28 +139,25 @@ cd .. && cd ..
   1. **Inference**
     <div class="highlight highlight-source-shell position-relative">
       <pre>
-      ```$ python polygon_detect.py --weights polygon-yolov5s-ucas.pt --img 1024 --conf 0.75 \
-          --source data/images/UCAS-AOD --iou-thres 0.4 --hide-labels
-      ```</pre>
+      $ python polygon_detect.py --weights polygon-yolov5s-ucas.pt --img 1024 --conf 0.75 \
+          --source data/images/UCAS-AOD --iou-thres 0.4 --hide-labels</pre>
       <p align="center">
       <img src="https://user-images.githubusercontent.com/87064748/125021658-ad83eb80-e0ad-11eb-9a61-7824cc09b4ba.png" width="500">
       </p></div>
   2. **Test**
     <div class="highlight highlight-source-shell position-relative">
       <pre>
-      ```$ python polygon_test.py --weights polygon-yolov5s-ucas.pt --data polygon_ucas.yaml \
-          --img 1024 --iou 0.65 --task val
-      ```</pre>
+      $ python polygon_test.py --weights polygon-yolov5s-ucas.pt --data polygon_ucas.yaml \
+          --img 1024 --iou 0.65 --task val</pre>
       <p align="center">
       <img src="https://user-images.githubusercontent.com/87064748/125021771-ddcb8a00-e0ad-11eb-8a4e-bef79280c258.png" width="500">
       </p></div>
   3. **Train**
     <div class="highlight highlight-source-shell position-relative">
       <pre>
-      ```$ python polygon_train.py --weights polygon-yolov5s-ucas.pt --cfg polygon_yolov5s_ucas.yaml \
+      $ python polygon_train.py --weights polygon-yolov5s-ucas.pt --cfg polygon_yolov5s_ucas.yaml \
           --data polygon_ucas.yaml --hyp hyp.ucas.yaml --img-size 1024 \
-          --epochs 3 --batch-size 12 --noautoanchor --polygon --cache
-      ```</pre></div>
+          --epochs 3 --batch-size 12 --noautoanchor --polygon --cache</pre></div>
   4. **Performance**
     <div class="highlight highlight-source-shell position-relative">
       4.1. Confusion Matrix
