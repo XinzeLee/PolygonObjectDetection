@@ -85,8 +85,7 @@ The modifications compared with Ultralytics/yolov5 and their brief descriptions 
 ***For the CUDA extension to be successfully built without error, please use CUDA version >= 11.2. The codes have been verified in Ubuntu 16.04 with Tesla K80 GPU.***
 <div class="highlight highlight-source-shell position-relative">
 <pre>
-```
-# The following codes install CUDA 11.2 from scratch on Ubuntu 16.04, if you have installed it, please ignore
+```# The following codes install CUDA 11.2 from scratch on Ubuntu 16.04, if you have installed it, please ignore
 # If you are using other versions of systems, please check https://tutorialforlinux.com/2019/12/01/how-to-add-cuda-repository-for-ubuntu-based-oses-2/
 # Install Ubuntu kernel head
 sudo apt install linux-headers-$(uname -r)
@@ -124,8 +123,7 @@ conda install -y python=3.7
 ***The following codes set you up with the Polygon Yolov5.***
 <div class="highlight highlight-source-shell position-relative">
 <pre>
-```
-# clone git repo
+```# clone git repo
 git clone https://github.com/XinzeLee/PolygonObjectDetection
 cd PolygonObjectDetection/polygon-yolov5
 # install python package requirements
@@ -143,8 +141,7 @@ cd .. && cd ..
   1. **Inference**
     <div class="highlight highlight-source-shell position-relative">
       <pre>
-      ```
-      $ python polygon_detect.py --weights polygon-yolov5s-ucas.pt --img 1024 --conf 0.75 \
+      ```$ python polygon_detect.py --weights polygon-yolov5s-ucas.pt --img 1024 --conf 0.75 \
           --source data/images/UCAS-AOD --iou-thres 0.4 --hide-labels
       ```</pre>
       <p align="center">
@@ -153,8 +150,7 @@ cd .. && cd ..
   2. **Test**
     <div class="highlight highlight-source-shell position-relative">
       <pre>
-      ```
-      $ python polygon_test.py --weights polygon-yolov5s-ucas.pt --data polygon_ucas.yaml \
+      ```$ python polygon_test.py --weights polygon-yolov5s-ucas.pt --data polygon_ucas.yaml \
           --img 1024 --iou 0.65 --task val
       ```</pre>
       <p align="center">
@@ -163,8 +159,7 @@ cd .. && cd ..
   3. **Train**
     <div class="highlight highlight-source-shell position-relative">
       <pre>
-      ```
-      $ python polygon_train.py --weights polygon-yolov5s-ucas.pt --cfg polygon_yolov5s_ucas.yaml \
+      ```$ python polygon_train.py --weights polygon-yolov5s-ucas.pt --cfg polygon_yolov5s_ucas.yaml \
           --data polygon_ucas.yaml --hyp hyp.ucas.yaml --img-size 1024 \
           --epochs 3 --batch-size 12 --noautoanchor --polygon --cache
       ```</pre></div>
