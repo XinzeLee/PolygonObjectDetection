@@ -15,8 +15,8 @@
 #include <thrust/execution_policy.h>
 #include <thrust/gather.h>
 #include <thrust/sequence.h>
-#include <cub/device/device_radix_sort.cuh>
-#include <cub/iterator/counting_input_iterator.cuh>
+/*#include <cub/device/device_radix_sort.cuh>
+#include <cub/iterator/counting_input_iterator.cuh>*/
 
 using namespace std;
 
