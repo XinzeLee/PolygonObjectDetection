@@ -836,6 +836,13 @@ def polygon_box_iou(boxes1, boxes2, GIoU=False, DIoU=False, CIoU=False, eps=1e-7
         boxes1_ = boxes1.float().contiguous().view(-1)
         boxes2_ = boxes2.float().contiguous().view(-1)
         inter, union = polygon_inter_union_cuda(boxes2_, boxes1_)  # Careful that order should be: boxes2_, boxes1_.
+        
+        inter_nan, union_nan = inter.isnan(), union.isnan()
+        if inter_nan.any() or union_nan.any():
+            inter2, union2 = polygon_inter_union_cuda(boxes1_, boxes2_)  # Careful that order should be: boxes1_, boxes2_.
+            inter2, union2 = inter2.T, union2.T
+            inter = torch.where(inter_nan, inter2, inter)
+            union = torch.where(union_nan, union2, union)
     else:
         # using shapely (cpu) to compute
         inter, union = polygon_inter_union_cpu(boxes1, boxes2)
@@ -908,6 +915,13 @@ def polygon_bbox_iou(boxes1, boxes2, GIoU=False, DIoU=False, CIoU=False, eps=1e-
         boxes1_ = boxes1.float().contiguous().view(-1)
         boxes2_ = boxes2.float().contiguous().view(-1)
         inter, union = polygon_b_inter_union_cuda(boxes2_, boxes1_)  # Careful that order should be: boxes2_, boxes1_.
+        
+        inter_nan, union_nan = inter.isnan(), union.isnan()
+        if inter_nan.any() or union_nan.any():
+            inter2, union2 = polygon_b_inter_union_cuda(boxes1_, boxes2_)  # Careful that order should be: boxes1_, boxes2_.
+            inter2, union2 = inter2.T, union2.T
+            inter = torch.where(inter_nan, inter2, inter)
+            union = torch.where(union_nan, union2, union)
     else:
         # using shapely (cpu) to compute
         inter, union = polygon_b_inter_union_cpu(boxes1, boxes2)
