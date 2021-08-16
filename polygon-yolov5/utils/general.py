@@ -829,7 +829,7 @@ def polygon_box_iou(boxes1, boxes2, GIoU=False, DIoU=False, CIoU=False, eps=1e-7
         Returns the IoU of shape (n, m) between boxes1 and boxes2. boxes1 is nx8, boxes2 is mx8
     """
     
-    boxes1, boxes2 = boxes1.clone().to(device), boxes2.clone().to(device)
+    boxes1, boxes2 = order_corners(boxes1.clone().to(device)), order_corners(boxes2.clone().to(device))
     if torch.cuda.is_available() and polygon_inter_union_cuda_enable and boxes1.is_cuda:
         # using cuda extension to compute
         # the boxes1 and boxes2 go inside polygon_inter_union_cuda must be torch.cuda.float, not double type
@@ -901,7 +901,7 @@ def polygon_bbox_iou(boxes1, boxes2, GIoU=False, DIoU=False, CIoU=False, eps=1e-
         For cuda code, please refer to files in ./iou_cuda
     """
     
-    boxes1, boxes2 = boxes1.clone().to(device), boxes2.clone().to(device)
+    boxes1, boxes2 = order_corners(boxes1.clone().to(device)), order_corners(boxes2.clone().to(device))
     if torch.cuda.is_available() and polygon_b_inter_union_cuda_enable and boxes1.is_cuda:
         # using cuda extension to compute
         # the boxes1 and boxes2 go inside inter_union_cuda must be torch.cuda.float, not double type or half type
