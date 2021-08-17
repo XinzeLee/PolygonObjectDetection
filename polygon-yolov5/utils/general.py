@@ -822,14 +822,18 @@ def polygon_inter_union_cpu(boxes1, boxes2):
     return inter, union
 
 
-def polygon_box_iou(boxes1, boxes2, GIoU=False, DIoU=False, CIoU=False, eps=1e-7, device="cpu"):
+def polygon_box_iou(boxes1, boxes2, GIoU=False, DIoU=False, CIoU=False, eps=1e-7, device="cpu", ordered=False):
     """
         Compute iou of polygon boxes via cpu or cuda;
         For cuda code, please refer to files in ./iou_cuda
         Returns the IoU of shape (n, m) between boxes1 and boxes2. boxes1 is nx8, boxes2 is mx8
     """
-    
-    boxes1, boxes2 = order_corners(boxes1.clone().to(device)), order_corners(boxes2.clone().to(device))
+    # For testing this function, please use ordered=False
+    if not ordered:
+        boxes1, boxes2 = order_corners(boxes1.clone().to(device)), order_corners(boxes2.clone().to(device))
+    else:
+        boxes1, boxes2 = boxes1.clone().to(device), boxes2.clone().to(device)
+        
     if torch.cuda.is_available() and polygon_inter_union_cuda_enable and boxes1.is_cuda:
         # using cuda extension to compute
         # the boxes1 and boxes2 go inside polygon_inter_union_cuda must be torch.cuda.float, not double type
@@ -902,13 +906,17 @@ def polygon_b_inter_union_cpu(boxes1, boxes2):
     return inter, union
 
 
-def polygon_bbox_iou(boxes1, boxes2, GIoU=False, DIoU=False, CIoU=False, eps=1e-7, device="cpu"):
+def polygon_bbox_iou(boxes1, boxes2, GIoU=False, DIoU=False, CIoU=False, eps=1e-7, device="cpu", ordered=False):
     """
         Compute iou of polygon boxes for class Polygon_ComputeLoss in loss.py via cpu or cuda;
         For cuda code, please refer to files in ./iou_cuda
     """
+    # For testing this function, please use ordered=False
+    if not ordered:
+        boxes1, boxes2 = order_corners(boxes1.clone().to(device)), order_corners(boxes2.clone().to(device))
+    else:
+        boxes1, boxes2 = boxes1.clone().to(device), boxes2.clone().to(device)
     
-    boxes1, boxes2 = order_corners(boxes1.clone().to(device)), order_corners(boxes2.clone().to(device))
     if torch.cuda.is_available() and polygon_b_inter_union_cuda_enable and boxes1.is_cuda:
         # using cuda extension to compute
         # the boxes1 and boxes2 go inside inter_union_cuda must be torch.cuda.float, not double type or half type
@@ -1068,6 +1076,7 @@ def polygon_nms_kernel(x, iou_thres):
     unique_labels = x[:, 9].unique()
     _, scores_sort_index = torch.sort(x[:, 8], descending=True)
     x = x[scores_sort_index]
+    x[:, :8] = order_corners(x[:, :8])
     indices = scores_sort_index
     selected_indices = []
     
@@ -1081,7 +1090,7 @@ def polygon_nms_kernel(x, iou_thres):
             selected_indices.append(indices_[0])
             if len(x_) == 1: break
             # Compute the IOUs for all other the polygon boxes
-            iou = polygon_box_iou(x_[0:1, :8], x_[1:, :8], device=x.device).view(-1)
+            iou = polygon_box_iou(x_[0:1, :8], x_[1:, :8], device=x.device, ordered=True).view(-1)
             # Remove overlapping detections with IoU >= NMS threshold
             x_ = x_[1:][iou < iou_thres]
             indices_ = indices_[1:][iou < iou_thres]
