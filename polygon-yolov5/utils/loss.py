@@ -269,7 +269,9 @@ class Polygon_ComputeLoss:
 
                 # Regression
                 pbox = ps[:, :8]  # predicted polygon box
-                iou = polygon_bbox_iou(pbox, tbox[i], CIoU=True, device=device)  # iou(prediction, target)
+                
+                # tbox[i] is ordered, and pbox from model will learn the sequential order naturally: so specify ordered=True
+                iou = polygon_bbox_iou(pbox, tbox[i], CIoU=True, device=device, ordered=True)  # iou(prediction, target)
                 # lbox += (1.0 - iou).mean()  # iou loss
                 
                 zero = torch.tensor(0., device=device)
