@@ -211,3 +211,4 @@ cd .. && cd ..</pre>
 
 ## Section VIII. Contributions
 * [tak-s](https://github.com/tak-s) : problems of [disjointed segmentations](https://github.com/XinzeLee/PolygonObjectDetection/issues/2) for some connected objects are solved.
+* [moshe](https://github.com/18112330636) : problems of [for loops in def order_corners & ambiguity when diagonal of quadrilateral is parallel to x-axis](https://github.com/XinzeLee/PolygonObjectDetection/issues/20) for some connected objects are solved.
