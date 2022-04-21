@@ -1105,16 +1105,24 @@ def order_corners(boxes):
                                 y3, y4 >= y1, y2; x1 <= x2; x4 <= x3
     """
     
+    if boxes.shape[0] == 0:
+        return torch.empty(0, 8, device=boxes.device)
     boxes = boxes.view(-1, 4, 2)
     x = boxes[..., 0]
     y = boxes[..., 1]
     y_sorted, y_indices = torch.sort(y) # sort y
-    x_sorted = torch.zeros_like(x, dtype=x.dtype)
-    for i in range(x.shape[0]):
-        x_sorted[i] = x[i, y_indices[i]]
+    idx = torch.arange(0, y.shape[0], dtype=torch.long, device=boxes.device)
+    complete_idx = idx[:, None].repeat(1, 4)
+    x_sorted = x[complete_idx, y_indices]
     x_sorted[:, :2], x_bottom_indices = torch.sort(x_sorted[:, :2])
     x_sorted[:, 2:4], x_top_indices = torch.sort(x_sorted[:, 2:4], descending=True)
-    for i in range(y.shape[0]):
-        y_sorted[i, :2] = y_sorted[i, :2][x_bottom_indices[i]]
-        y_sorted[i, 2:4] = y_sorted[i, 2:4][x_top_indices[i]]
+    y_sorted[idx, :2] = y_sorted[idx, :2][complete_idx[:, :2], x_bottom_indices]
+    y_sorted[idx, 2:4] = y_sorted[idx, 2:4][complete_idx[:, 2:4], x_top_indices]
+    
+    # prevent the ambiguous case when the diagonal of the quadrilateral is parallel to the x-axis
+    special = (y_sorted[:, 1] == y_sorted[:, 2]) & (x_sorted[:, 1] > x_sorted[:, 2])
+    if idx[special].shape[0] != 0:
+        x_sorted_1 = x_sorted[idx[special], 1].clone()
+        x_sorted[idx[special], 1] = x_sorted[idx[special], 2]
+        x_sorted[idx[special], 2] = x_sorted_1
     return torch.stack((x_sorted, y_sorted), dim=2).view(-1, 8).contiguous()
