@@ -810,9 +810,9 @@ def polygon_inter_union_cpu(boxes1, boxes2):
     inter = torch.zeros(n, m)
     union = torch.zeros(n, m)
     for i in range(n):
-        polygon1 = shapely.geometry.Polygon(boxes1[i, :].view(4,2)).convex_hull
+        polygon1 = shapely.geometry.Polygon(boxes1[i, :].view(4,2).cpu().numpy()).convex_hull
         for j in range(m):
-            polygon2 = shapely.geometry.Polygon(boxes2[j, :].view(4,2)).convex_hull
+            polygon2 = shapely.geometry.Polygon(boxes2[j, :].view(4,2).cpu().numpy()).convex_hull
             if polygon1.intersects(polygon2):
                 try:
                     inter[i, j] = polygon1.intersection(polygon2).area
@@ -895,8 +895,8 @@ def polygon_b_inter_union_cpu(boxes1, boxes2):
     inter = torch.zeros(n,)
     union = torch.zeros(n,)
     for i in range(n):
-        polygon1 = shapely.geometry.Polygon(boxes1[i, :].view(4,2)).convex_hull
-        polygon2 = shapely.geometry.Polygon(boxes2[i, :].view(4,2)).convex_hull
+        polygon1 = shapely.geometry.Polygon(boxes1[i, :].view(4,2).detach().cpu().numpy()).convex_hull
+        polygon2 = shapely.geometry.Polygon(boxes2[i, :].view(4,2).detach().cpu().numpy()).convex_hull
         if polygon1.intersects(polygon2):
             try:
                 inter[i] = polygon1.intersection(polygon2).area
@@ -917,6 +917,8 @@ def polygon_bbox_iou(boxes1, boxes2, GIoU=False, DIoU=False, CIoU=False, eps=1e-
     else:
         boxes1, boxes2 = boxes1.clone().to(device), boxes2.clone().to(device)
     
+    # print(polygon_b_inter_union_cuda_enable)
+    # print(boxes1.is_cuda)
     if torch.cuda.is_available() and polygon_b_inter_union_cuda_enable and boxes1.is_cuda:
         # using cuda extension to compute
         # the boxes1 and boxes2 go inside inter_union_cuda must be torch.cuda.float, not double type or half type
@@ -958,6 +960,10 @@ def polygon_bbox_iou(boxes1, boxes2, GIoU=False, DIoU=False, CIoU=False, eps=1e-
                 w1, h1 = b1_x2-b1_x1, b1_y2-b1_y1+eps
                 v = (4 / math.pi ** 2) * torch.pow(torch.atan(w2 / h2) - torch.atan(w1 / h1), 2)
                 with torch.no_grad():
+                    iou = iou.to("cuda:0")
+                    #print(v.device)
+                    #print(iou.device)
+                    #print(eps)
                     alpha = v / (v - iou + (1 + eps))
                 iou -= (rho2 / c2 + v * alpha)  # CIoU
         else:  # GIoU https://arxiv.org/pdf/1902.09630.pdf
